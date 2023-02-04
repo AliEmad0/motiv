@@ -9,4 +9,5 @@ export type Car_Props = {
   car: string;
   car_model: string;
   price: string;
+  car_model_year: number;
 };

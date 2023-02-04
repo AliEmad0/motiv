@@ -13,6 +13,7 @@ module.exports = {
         EffraMedium: ["EffraMedium"],
         Effra: ["Effra"],
         EffraBold: ["EffraBold"],
+        PoppinsRegular: ["PoppinsRegular"],
       },
     },
   },
