@@ -2,48 +2,67 @@ import type { NextPage } from "next";
 import Image from "next/image";
 import Head from "next/head";
 import DashCarCard from "../components/Dashboard/DashboardCarCard";
+import { useEffect, useMemo, useState } from "react";
+import Spinner from "../components/Spinner";
+import { Car_Props } from "../components/Dashboard/DashboardCarCard/data";
 
-type Item = {
-  id: number;
-  name: string;
-  recommend: string;
-  price: string;
-  retweet: string;
-  img: string;
-  color: string;
+// const Cars_Data: Item[] = [
+//   {
+//     id: 1,
+//     name: "Mini Cooper",
+//     recommend: "64%",
+//     price: "32",
+//     retweet: "132K",
+//     img: "/images/dashboard/first-car.svg",
+//     color: "#E1DFA4",
+//   },
+//   {
+//     id: 2,
+//     name: "Porsche 911 Carrera",
+//     recommend: "74%",
+//     price: "28",
+//     retweet: "130K",
+//     img: "/images/dashboard/second-car.svg",
+//     color: "#E3ECF1",
+//   },
+//   {
+//     id: 3,
+//     name: "Porsche 911 Carrera",
+//     recommend: "74%",
+//     price: "28",
+//     retweet: "130K",
+//     img: "/images/dashboard/third-car.svg",
+//     color: "#F4E3E5",
+//   },
+// ];
+
+type Props = {
+  cars: Car_Props[];
 };
 
-const Cars_Data: Item[] = [
-  {
-    id: 1,
-    name: "Mini Cooper",
-    recommend: "64%",
-    price: "32",
-    retweet: "132K",
-    img: "/images/dashboard/first-car.svg",
-    color: "#E1DFA4",
-  },
-  {
-    id: 2,
-    name: "Porsche 911 Carrera",
-    recommend: "74%",
-    price: "28",
-    retweet: "130K",
-    img: "/images/dashboard/second-car.svg",
-    color: "#E3ECF1",
-  },
-  {
-    id: 3,
-    name: "Porsche 911 Carrera",
-    recommend: "74%",
-    price: "28",
-    retweet: "130K",
-    img: "/images/dashboard/third-car.svg",
-    color: "#F4E3E5",
-  },
-];
+const Home: NextPage<Props> = (cars: Props) => {
+  const [data, setData] = useState<Car_Props[]>([]);
+  const [loading, setLoading] = useState(false);
+  console.log("cars:", cars);
+  console.log("data:", data);
 
-const Home: NextPage = () => {
+  useEffect(() => {
+    setLoading(true);
+    setData(cars.cars);
+    setLoading(false);
+  }, []);
+
+  const getLargestThree = useMemo(
+    () =>
+      data
+        ?.sort((a: { retweet: number }, b: { retweet: number }) =>
+          a.retweet < b.retweet ? 1 : a.retweet > b.retweet ? -1 : 0
+        )
+        ?.slice(0, 3),
+    [data]
+  );
+  console.log("getLargestThree:", getLargestThree);
+
   return (
     <div className="h-full w-full">
       <Head>
@@ -51,6 +70,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.svg" />
       </Head>
       <div className="flex w-full flex-1 flex-col items-center md:items-start px-[30px] text-center py-7 gap-y-[30px]">
+        {/* // ! First Section */}
         <div className="w-fit grid grid-rows-4 grid-cols-1 md:grid-rows-2 md:grid-cols-2 xl:grid-rows-1 xl:grid-cols-4 justify-items-center md:justify-items-start gap-[36px]">
           <div className="w-[232px] h-[266px] bg-slate-600">1</div>
           <div className="w-[232px] h-[266px] bg-slate-600">2</div>
@@ -58,6 +78,7 @@ const Home: NextPage = () => {
           <div className="w-[232px] h-[266px] bg-slate-600">4</div>
         </div>
 
+        {/* // ! Second Section */}
         <div className="w-full flex flex-wrap gap-[30px] justify-center md:justify-start">
           <div className="w-[554px] h-[222px] bg-[#FFE0BA] rounded-[4px] flex flex-row items-center pl-6 justify-between">
             <div className="flex flex-col text-left">
@@ -139,14 +160,32 @@ const Home: NextPage = () => {
           </div>
         </div>
 
-        <div className="w-fit grid grid-rows-3 grid-cols-1 lg:grid-rows-2 lg:grid-cols-2 xl:grid-rows-1 xl:grid-cols-3 justify-items-center md:justify-items-start gap-[40px]">
-          {Cars_Data.map((car: Item) => (
-            <DashCarCard key={car.id} carData={car} />
-          ))}
-        </div>
+        {/* // ! Third Section */}
+        {loading ? (
+          <Spinner />
+        ) : data?.length ? (
+          <div className="w-fit grid grid-rows-3 grid-cols-1 lg:grid-rows-2 lg:grid-cols-2 xl:grid-rows-1 xl:grid-cols-3 justify-items-center md:justify-items-start gap-[40px]">
+            {getLargestThree?.map((car: Car_Props, i: number) => (
+              <DashCarCard key={car.id} carData={car} index={i} />
+            ))}
+          </div>
+        ) : null}
       </div>
     </div>
   );
 };
+
+export async function getStaticProps() {
+  const res = await fetch(
+    "https://mocki.io/v1/e212a2b9-5b2f-4e02-b021-4c650314a043"
+  );
+  const cars = await res.json();
+
+  return {
+    props: {
+      cars,
+    },
+  };
+}
 
 export default Home;
