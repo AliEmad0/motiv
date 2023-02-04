@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { FC, useEffect, useState } from "react";
+import React, { FC } from "react";
 
 const Nav_Links: {
   id: number;
@@ -26,13 +26,14 @@ const Nav_Links: {
 const Header: FC = () => {
   const { route } = useRouter();
   return (
-    <header className="h-auto md:h-full w-full md:max-w-[248px] flex flex-row md:flex-col justify-between bg-slate-600 py-8 pl-6 pr-[50px]">
+    <header className="h-auto md:h-full w-full md:max-w-[248px] flex flex-row md:flex-col justify-between bg-slate-600 py-8 md:pl-6 md:pr-[50px] px-[30px]">
       <div className="flex flex-col">
         <Link href="/" className="mb-[37px]">
           <Image
             height={31}
             width={108.91}
             src="/images/layout/logo.svg"
+            priority
             alt=""
           />
         </Link>
@@ -41,11 +42,11 @@ const Header: FC = () => {
             <Link
               key={link.id}
               href={link.route}
-              className={`w-full flex items-center gap-x-2 pl-2 py-[7px] font-DMSansMedium font-medium text-[17px] leading-[18.23px] text-[#5f6165] rounded-[6px] ${
+              className={`w-full flex items-center gap-x-2 md:pl-2 px-2 py-[7px] font-DMSansMedium font-medium text-[17px] leading-[18.23px] text-[#5f6165] rounded-[6px] ${
                 route === link.route ? "bg-[#F3F5F8]" : "bg-transparent"
               }`}
             >
-              <Image height={20} width={20} src={link.img} alt="" />
+              <Image height={20} width={20} src={link.img} priority alt="" />
               <span>{link.title}</span>
             </Link>
           ))}
@@ -57,12 +58,19 @@ const Header: FC = () => {
             height={20}
             width={20}
             src="/images/layout/settings.svg"
+            priority
             alt=""
           />
           <span>Settings</span>
         </button>
         <button className="flex items-center gap-x-2 pl-2 py-[7px] w-fit font-DMSansMedium font-medium text-[14px] leading-[18.23px] text-[#5f6165] bg-transparent">
-          <Image height={20} width={20} src="/images/layout/out.svg" alt="" />
+          <Image
+            height={20}
+            width={20}
+            src="/images/layout/out.svg"
+            priority
+            alt=""
+          />
           <span>Log out</span>
         </button>
       </div>

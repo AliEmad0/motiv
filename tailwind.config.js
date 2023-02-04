@@ -10,6 +10,9 @@ module.exports = {
       fontFamily: {
         DMSansRegular: ["DMSansRegular"],
         DMSansMedium: ["DMSansMedium"],
+        EffraMedium: ["EffraMedium"],
+        Effra: ["Effra"],
+        EffraBold: ["EffraBold"],
       },
     },
   },

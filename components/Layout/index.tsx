@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Header from "./Header";
 
 type Props = {
@@ -11,7 +11,7 @@ const Layout = ({ children }: Props) => (
     <Header />
     <main className="w-full h-full flex flex-col bg-red-800 overflow-hidden">
       <div className="w-full max-h-[78px] h-full flex flex-row justify-between items-center px-[30px]">
-        <div className="relative w-full max-w-[358px]">
+        <div className="relative w-3/5 md:w-full max-w-[358px]">
           <div className="absolute inset-y-0 left-0 flex items-center pl-[14px] pointer-events-none">
             <svg
               aria-hidden="true"
@@ -36,12 +36,13 @@ const Layout = ({ children }: Props) => (
             placeholder="  Search or type"
           />
         </div>
-        <div className="flex flex-row gap-x-9">
+        <div className="flex flex-row md:gap-x-9 gap-x-4 w-2/5 md:w-auto justify-end">
           <button>
             <Image
               height={19.2}
               width={24}
               src="/images/layout/notification.svg"
+              priority
               alt=""
             />
           </button>
@@ -50,6 +51,7 @@ const Layout = ({ children }: Props) => (
               height={48}
               width={48}
               src="/images/layout/profile.svg"
+              priority
               alt=""
             />
           </button>
