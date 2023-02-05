@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React, { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
 type Props = {
   buttonValue: string;
@@ -28,28 +29,38 @@ const DropDown = ({ buttonValue, setButtonValue, modelOption }: Props) => {
           alt=""
         />
       </button>
-      {isOpen ? (
-        <ul className="bg-[#F5F5F5] mt-2 absolute w-full max-h-80 overflow-y-auto">
-          {modelOption.map((one) => (
-            <li
-              key={one.title}
-              className="text-sm hover:bg-sky-500 hover:text-white"
-            >
-              <button
-                onClick={() => {
-                  if (buttonValue !== one.value) {
-                    setButtonValue(one.value);
-                    setOpen(false);
-                  }
-                }}
-                className="p-2 w-full h-full text-left"
+      <AnimatePresence>
+        {isOpen ? (
+          <motion.ul
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{
+              duration: 0.5,
+            }}
+            className="bg-[#F5F5F5] mt-2 absolute w-full max-h-80 overflow-y-auto"
+          >
+            {modelOption.map((one) => (
+              <li
+                key={one.title}
+                className="text-sm hover:bg-sky-500 hover:text-white"
               >
-                {one.title}
-              </button>
-            </li>
-          ))}
-        </ul>
-      ) : null}
+                <button
+                  onClick={() => {
+                    if (buttonValue !== one.value) {
+                      setButtonValue(one.value);
+                      setOpen(false);
+                    }
+                  }}
+                  className="p-2 w-full h-full text-left"
+                >
+                  {one.title}
+                </button>
+              </li>
+            ))}
+          </motion.ul>
+        ) : null}
+      </AnimatePresence>
     </div>
   );
 };

@@ -1,3 +1,4 @@
+import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import React from "react";
 import DropDown from "../../DropDown";
@@ -27,20 +28,28 @@ const FilterSection = ({
   return (
     <div className="flex flex-row w-full items-center justify-between">
       <div className="flex gap-x-4">
-        {openFilter ? (
-          <>
-            <DropDown
-              buttonValue={modelYear}
-              setButtonValue={setModelYear}
-              modelOption={Model_Option}
-            />
-            <DropDown
-              buttonValue={carModel}
-              setButtonValue={setCarModel}
-              modelOption={Car_Model_Option}
-            />
-          </>
-        ) : null}
+        <AnimatePresence>
+          {openFilter ? (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+              className="flex flex-col md:flex-row gap-4"
+            >
+              <DropDown
+                buttonValue={modelYear}
+                setButtonValue={setModelYear}
+                modelOption={Model_Option}
+              />
+              <DropDown
+                buttonValue={carModel}
+                setButtonValue={setCarModel}
+                modelOption={Car_Model_Option}
+              />
+            </motion.div>
+          ) : null}
+        </AnimatePresence>
       </div>
       <div className="flex gap-x-4">
         <button

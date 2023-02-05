@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React from "react";
+import { motion } from "framer-motion";
 import { Car_Props } from "../../Dashboard/data";
 
 type Item = {
@@ -38,7 +39,11 @@ const CarCard = ({ data, favoriteList, setFavoriteList }: Item) => {
     }
   };
   return (
-    <div className="w-[325px] h-[267px] rounded-[16px] p-6 bg-white flex flex-col items-center justify-between">
+    <motion.div
+      layout
+      transition={{ duration: 0.5 }}
+      className="w-[325px] h-[267px] rounded-[16px] p-6 bg-white flex flex-col items-center justify-between"
+    >
       <div className="flex items-center justify-between w-full">
         <h3 className="font-DMSansMedium text-lg font-bold leading-6 text-[#242731]">
           {data.car} {data.car_model}
@@ -103,7 +108,7 @@ const CarCard = ({ data, favoriteList, setFavoriteList }: Item) => {
           </h3>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
