@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import { Car_Props } from "../../Dashboard/DashboardCarCard/data";
+import { Car_Props } from "../../Dashboard/data";
 
 type Item = {
   data: Car_Props;

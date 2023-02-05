@@ -29,7 +29,7 @@ const DropDown = ({ buttonValue, setButtonValue, modelOption }: Props) => {
         />
       </button>
       {isOpen ? (
-        <ul className="bg-white mt-2 absolute w-full max-h-80 overflow-y-auto">
+        <ul className="bg-[#F5F5F5] mt-2 absolute w-full max-h-80 overflow-y-auto">
           {modelOption.map((one) => (
             <li
               key={one.title}

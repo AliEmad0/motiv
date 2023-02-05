@@ -26,7 +26,7 @@ const Nav_Links: {
 const Header: FC = () => {
   const { route } = useRouter();
   return (
-    <header className="h-auto md:h-full w-full md:max-w-[248px] flex flex-row md:flex-col justify-between bg-slate-600 py-8 md:pl-6 md:pr-[50px] px-[30px]">
+    <header className="h-auto md:h-full w-full md:max-w-[248px] flex flex-row md:flex-col justify-between bg-white py-8 md:pl-6 md:pr-[50px] px-[30px]">
       <div className="flex flex-col">
         <Link href="/" className="mb-[37px]">
           <Image
