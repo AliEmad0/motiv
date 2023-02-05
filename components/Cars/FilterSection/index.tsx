@@ -65,7 +65,11 @@ const FilterSection = ({
           <Image
             height={24}
             width={24}
-            src="/images/cars/grayDisplay.svg"
+            src={
+              displayMode === "grid"
+                ? "/images/cars/grayDisplay.svg"
+                : "/images/cars/lineDisplay.svg"
+            }
             priority
             alt=""
           />

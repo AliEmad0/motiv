@@ -79,6 +79,7 @@ const Cars: NextPage<Props> = (cars: Props) => {
                   data={car}
                   favoriteList={favoriteList}
                   setFavoriteList={setFavoriteList}
+                  displayMode={displayMode}
                 />
               ))}
             </div>

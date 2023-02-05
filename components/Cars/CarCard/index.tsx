@@ -7,6 +7,7 @@ type Item = {
   data: Car_Props;
   favoriteList: any;
   setFavoriteList: any;
+  displayMode: string;
 };
 
 const Cars_Image: any = {
@@ -27,7 +28,12 @@ const Cars_Image: any = {
   Pontiac: "/images/cars/third-car.svg",
 };
 
-const CarCard = ({ data, favoriteList, setFavoriteList }: Item) => {
+const CarCard = ({
+  data,
+  favoriteList,
+  setFavoriteList,
+  displayMode,
+}: Item) => {
   const handleClick = (item: Car_Props) => {
     if (favoriteList.find((c: Car_Props) => c.id === item.id)) {
       const newFilters = favoriteList.filter(
@@ -42,7 +48,9 @@ const CarCard = ({ data, favoriteList, setFavoriteList }: Item) => {
     <motion.div
       layout
       transition={{ duration: 0.5 }}
-      className="w-[325px] h-[267px] rounded-[16px] p-6 bg-white flex flex-col items-center justify-between"
+      className={`h-[267px] rounded-[16px] p-6 bg-white flex flex-col items-center justify-between ${
+        displayMode === "grid" ? "w-[325px]" : "w-full"
+      }`}
     >
       <div className="flex items-center justify-between w-full">
         <h3 className="font-DMSansMedium text-lg font-bold leading-6 text-[#242731]">
