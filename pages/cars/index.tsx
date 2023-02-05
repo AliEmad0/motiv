@@ -13,6 +13,7 @@ type Props = {
 
 const Cars: NextPage<Props> = (cars: Props) => {
   const [data, setData] = useState<Car_Props[]>([]);
+  const [favoriteList, setFavoriteList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [modelYear, setModelYear] = useState<string>("New");
   const [carModel, setCarModel] = useState("All");
@@ -73,7 +74,12 @@ const Cars: NextPage<Props> = (cars: Props) => {
           ) : FilteredData?.length ? (
             <div className="flex flex-wrap gap-6">
               {FilteredData.map((car) => (
-                <CarCard key={car.id} data={car} />
+                <CarCard
+                  key={car.id}
+                  data={car}
+                  favoriteList={favoriteList}
+                  setFavoriteList={setFavoriteList}
+                />
               ))}
             </div>
           ) : (
