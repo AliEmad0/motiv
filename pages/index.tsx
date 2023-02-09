@@ -76,6 +76,7 @@ const Home: NextPage<Props> = (cars: Props) => {
           <div className="w-fit grid grid-rows-4 grid-cols-1 md:grid-rows-2 md:grid-cols-2 xl:grid-rows-1 xl:grid-cols-4 justify-items-center md:justify-items-start gap-[36px]">
             {CarsData.map((card) => (
               <FirstCard
+                key={card.title}
                 img={card.img}
                 title={card.title}
                 number={card.number}
